@@ -2,7 +2,7 @@
 FROM openjdk:21-slim
 
 RUN apt-get update
-RUN apt-get install curl
+RUN apt-get install curl -y
 
 # Set the working directory
 WORKDIR /app
