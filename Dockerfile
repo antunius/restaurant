@@ -1,6 +1,9 @@
 # Use the official OpenJDK 19 image as a base image
 FROM openjdk:21-slim
 
+RUN apt-get update
+RUN apt-get install curl
+
 # Set the working directory
 WORKDIR /app
 
