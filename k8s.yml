@@ -24,7 +24,7 @@ spec:
       containers:
         - name: restaurant
           image: marcusantunius/restaurant:v1
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -44,4 +44,27 @@ spec:
       port: 443
       targetPort: 443
       name: https
-  type: ClusterIP
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: restaurant
+  namespace: restaurant
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  labels:
+    app: restaurant
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: restaurant
+                port:
+                  number: 80
