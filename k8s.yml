@@ -10,6 +10,7 @@ metadata:
   namespace: restaurant
   labels:
     app: restaurant
+    version: v1
 spec:
   replicas: 1
   selector:
@@ -20,6 +21,7 @@ spec:
       name: restaurant
       labels:
         app: restaurant
+        version: v1
     spec:
       containers:
         - name: restaurant
